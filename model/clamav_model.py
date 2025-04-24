@@ -4,10 +4,17 @@ from datetime import datetime
 from pathlib import Path
 import queue
 
+
 class ClamAVModel:
     def __init__(self):
-        self.history_dir = Path.home() / "ClamAV_History"
+
+        # Inicializa el directorio de historial / Initialize the history directory
+        base_dir = Path.home() / "ClamAVTkinter"
+        base_dir.mkdir(exist_ok=True)
+        self.history_dir = base_dir / "ClamAV_History"
         self.history_dir.mkdir(exist_ok=True)
+
+        # Inicializa la cola de resultados / Initialize the result queue
         self.result_queue = queue.Queue()
         self.version_info = {"version": "", "db_date": None}
 
@@ -52,7 +59,7 @@ class ClamAVModel:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"{timestamp}.txt"
         filepath = self.history_dir / filename
-    
+
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(f"Standard output:\n")
             f.write(result.stdout)

@@ -2,21 +2,23 @@ import threading
 from tkinter import filedialog
 import os
 from model.config_model import ConfigModel
+from pathlib import Path
 
 VERSION = "0.0.5"
+
 
 class ClamAVController:
     def __init__(self, model, texts):
         self.model = model
         self.texts = texts
 
-        # Cargar el archivo de configuración / Load the configuration file
-        path_current_file = os.path.dirname(__file__)
-        project_root = os.path.dirname(path_current_file)
-        self.path_config_file = os.path.join(project_root, ".config.json")
-        self.config = ConfigModel(self.path_config_file)
+        # Ruta al archivo de configuración en $HOME/ClamAVTkinter/.config.json / Path to the configuration file in $HOME/ClamAVTkinter/.config.json
+        self.path_config_file = Path.home() / "ClamAVTkinter" / ".config.json"
+        self.path_config_file.parent.mkdir(parents=True, exist_ok=True)  # Asegura que exista el directorio / Ensure the directory exists
+        self.path_config_file.touch(exist_ok=True)  # Crea el archivo si no existe / Create the file if it doesn't exist
 
         # Cargar la configuración / Load the configuration
+        self.config = ConfigModel(str(self.path_config_file))
         self.lang = self.config.load()["lang"]
         self.view = None
 

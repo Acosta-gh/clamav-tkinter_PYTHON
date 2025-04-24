@@ -7,7 +7,7 @@ from language_service.language_service import LanguageService
 def main():
     # Initialize MVC components / Inicializar componentes MVC  
     root = tk.Tk()
-    
+  
     # Load texts for different languages / Cargar textos para diferentes idiomas  
     texts = LanguageService.load_texts()
     

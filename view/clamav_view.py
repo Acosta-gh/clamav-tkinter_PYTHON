@@ -4,7 +4,7 @@ from tkinter.filedialog import askopenfilename, askdirectory
 from datetime import datetime
 from tkinter import PhotoImage
 import os
-import json
+from pathlib import Path
 from model.config_model import ConfigModel
 
 
@@ -13,11 +13,15 @@ class ClamAVView:
         self.root = root
         self.controller = controller
 
-        # Cargar el archivo de configuración / Load the configuration file
-        path_current_file = os.path.dirname(__file__)
-        project_root = os.path.dirname(path_current_file)
-        self.path_config_file = os.path.join(project_root, ".config.json")
+        # Ruta al archivo de configuración
+        self.path_config_file = Path.home() / "ClamAVTkinter" / ".config.json"
+        self.path_config_file.parent.mkdir(parents=True, exist_ok=True)  # Crear directorio si no existe
+
+        # Crear archivo vacío si no existe (opcional)
+        self.path_config_file.touch(exist_ok=True)
+
         self.config = ConfigModel(self.path_config_file)
+
 
         # Cargar la configuración / Load the configuration
         self.lang = self.config.load()["lang"]
