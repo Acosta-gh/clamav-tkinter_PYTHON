@@ -52,7 +52,7 @@ class ClamAVModel:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"{timestamp}.txt"
         filepath = self.history_dir / filename
-
+    
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(f"Standard output:\n")
             f.write(result.stdout)

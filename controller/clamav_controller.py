@@ -1,16 +1,24 @@
 import threading
 from tkinter import filedialog
 import os
+from model.config_model import ConfigModel
 
-VERSION = "0.0.10"
-
+VERSION = "0.0.5"
 
 class ClamAVController:
     def __init__(self, model, texts):
         self.model = model
         self.texts = texts
-        self.lang = "en"
-        self.view = None  
+
+        # Cargar el archivo de configuración / Load the configuration file
+        path_current_file = os.path.dirname(__file__)
+        project_root = os.path.dirname(path_current_file)
+        self.path_config_file = os.path.join(project_root, ".config.json")
+        self.config = ConfigModel(self.path_config_file)
+
+        # Cargar la configuración / Load the configuration
+        self.lang = self.config.load()["lang"]
+        self.view = None
 
     def set_view(self, view):
         """Establece la referencia a la vista / Sets the reference to the view"""
@@ -23,6 +31,11 @@ class ClamAVController:
         self.view.lang = lang
         self.view.update_texts()
         self.get_version()
+        self.config.save(
+            {
+                "lang": self.lang,
+            }
+        )
 
     def scan_a_file(self):
         """Inicia el escaneo de un archivo / Starts scanning a file"""
@@ -138,7 +151,7 @@ class ClamAVController:
         # Formatear fechas para comparación / Format dates for comparison
         version_date_formatted = db_date.strftime("%Y-%m-%d")
         current_date_formatted = current_date.strftime("%Y-%m-%d")
-        
+
         # Actualizar la etiqueta con la información de versión / Update the label with version information
         self.view.update_version_label(
             f"{self.texts[self.lang]['version_label']} {version}\n"
