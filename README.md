@@ -63,10 +63,7 @@ To open the graphical interface:
    ```
    python3 main.py
    ```
-
-## Download Executables
-[![Image](https://github.com/user-attachments/assets/6b392f0f-f903-4299-812c-b9a83b07aa32)](https://github.com/Acosta-gh/clamav-tkinter_PYTHON/releases/download/0.0.10/ClamAVTkinter.appimage)
-
+   
 ## Screenshots
 ![Image](https://github.com/user-attachments/assets/1057823b-5324-434e-9b37-f134be7aaaf2)
 
@@ -152,10 +149,6 @@ Para abrir la interfaz gráfica:
    ```
    python3 main.py
    ```
-
-
-## Descargar Ejecutables
-[![Image](https://github.com/user-attachments/assets/6b392f0f-f903-4299-812c-b9a83b07aa32)](https://github.com/Acosta-gh/clamav-tkinter_PYTHON/releases/download/0.0.10/ClamAVTkinter.appimage)
 
 ## Imagenes
 ![Image](https://github.com/user-attachments/assets/1057823b-5324-434e-9b37-f134be7aaaf2)
