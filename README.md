@@ -1,9 +1,9 @@
 
 ### 🇬🇧 English 
 
-# 🛡️ ClamAV Tkinter (In Development)
+# 🛡️ YAGC (Yet Another GUI for ClamAV)
 
-ClamAV GUI is a graphical user interface (GUI) designed to make using ClamAV—an open-source antivirus software—easier. This application is inspired by projects like ClamWin and ClamTk, and offers a more accessible and visual experience for users who want to perform antivirus scans on their systems quickly and easily.
+YAGC is a graphical user interface (GUI) designed to make using ClamAV—an open-source antivirus software—easier. This application is inspired by projects like ClamWin and ClamTk, and offers a more accessible and visual experience for users who want to perform antivirus scans on their systems quickly and easily.
 
 ## 🌟 Features
 
@@ -64,26 +64,26 @@ To open the graphical interface:
    python3 main.py
    ```
 
-## Download Executables
-[![Image](https://github.com/user-attachments/assets/6b392f0f-f903-4299-812c-b9a83b07aa32)](https://github.com/Acosta-gh/clamav-tkinter_PYTHON/releases/download/0.0.10/ClamAVTkinter.appimage)
-
 ## Screenshots
-![Image](https://github.com/user-attachments/assets/1057823b-5324-434e-9b37-f134be7aaaf2)
+![Image](https://github.com/user-attachments/assets/af91a543-87f0-4411-a670-b4210452302e)
 
-![Image](https://github.com/user-attachments/assets/e541c2ad-cd09-4ae6-96be-8827b03b308c)
+![Image](https://github.com/user-attachments/assets/a04a4c49-063b-42e5-acd4-17b4f46776cd)
 
-![Image](https://github.com/user-attachments/assets/4fa714a2-f41f-43d0-9759-e19c748c8af2)
+![Image](https://github.com/user-attachments/assets/f5ccb8e2-d5c3-4e0f-9a00-562211694d3a)
 
-![Image](https://github.com/user-attachments/assets/cb7f14ff-f673-4dbc-ba44-5571d5214ee7)
+![Image](https://github.com/user-attachments/assets/09942eda-4fe3-464f-adcc-77ea57ba5df4)
+
+![Image](https://github.com/user-attachments/assets/dfb5e2d8-8416-4692-869a-cd85de794463)
+
 
 Icon credit: : [diamonjohn on Openclipart](https://openclipart.org/artist/diamonjohn)
 
 
 ### 🇪🇸 Español
 
-# 🛡️ ClamAV Tkinter (En desarrollo)
+# 🛡️ YAGC (En desarrollo)
 
-ClamAV GUI es una interfaz gráfica de usuario (GUI) diseñada para facilitar el uso de ClamAV, un software antivirus de código abierto. Esta aplicación está inspirada en proyectos como ClamWin y ClamTk, y ofrece una experiencia más accesible y visual para los usuarios que desean realizar escaneos antivirus en sus sistemas de forma rápida y sencilla.
+YAGC es una interfaz gráfica de usuario (GUI) diseñada para facilitar el uso de ClamAV, un software antivirus de código abierto. Esta aplicación está inspirada en proyectos como ClamWin y ClamTk, y ofrece una experiencia más accesible y visual para los usuarios que desean realizar escaneos antivirus en sus sistemas de forma rápida y sencilla.
 
 ## 🌟 Características
 
@@ -153,17 +153,15 @@ Para abrir la interfaz gráfica:
    python3 main.py
    ```
 
-
-## Descargar Ejecutables
-[![Image](https://github.com/user-attachments/assets/6b392f0f-f903-4299-812c-b9a83b07aa32)](https://github.com/Acosta-gh/clamav-tkinter_PYTHON/releases/download/0.0.10/ClamAVTkinter.appimage)
-
 ## Imagenes
-![Image](https://github.com/user-attachments/assets/1057823b-5324-434e-9b37-f134be7aaaf2)
+![Image](https://github.com/user-attachments/assets/af91a543-87f0-4411-a670-b4210452302e)
 
-![Image](https://github.com/user-attachments/assets/e541c2ad-cd09-4ae6-96be-8827b03b308c)
+![Image](https://github.com/user-attachments/assets/a04a4c49-063b-42e5-acd4-17b4f46776cd)
 
-![Image](https://github.com/user-attachments/assets/4fa714a2-f41f-43d0-9759-e19c748c8af2)
+![Image](https://github.com/user-attachments/assets/f5ccb8e2-d5c3-4e0f-9a00-562211694d3a)
 
-![Image](https://github.com/user-attachments/assets/cb7f14ff-f673-4dbc-ba44-5571d5214ee7)
+![Image](https://github.com/user-attachments/assets/09942eda-4fe3-464f-adcc-77ea57ba5df4)
+
+![Image](https://github.com/user-attachments/assets/dfb5e2d8-8416-4692-869a-cd85de794463)
 
 Crédito del icono: [diamonjohn en Openclipart](https://openclipart.org/artist/diamonjohn)

@@ -15,13 +15,13 @@ class ClamAVView:
 
         # Ruta al archivo de configuración
         self.path_config_file = Path.home() / "ClamAVTkinter" / ".config.json"
-        self.path_config_file.parent.mkdir(parents=True, exist_ok=True)  # Crear directorio si no existe
+        self.path_config_file.parent.mkdir(
+            parents=True, exist_ok=True)  # Crear directorio si no existe
 
         # Crear archivo vacío si no existe (opcional)
         self.path_config_file.touch(exist_ok=True)
 
         self.config = ConfigModel(self.path_config_file)
-
 
         # Cargar la configuración / Load the configuration
         self.lang = self.config.load()["lang"]
@@ -41,7 +41,8 @@ class ClamAVView:
         # Variables de configuración / Configuration variables
         self.checkbox_var_recursive = tk.IntVar(
             value=self.config.load()["recursive"])
-        self.checkbox_var_kill = tk.IntVar(value=self.config.load()["kill"])
+        self.combobox_var = tk.IntVar(value=self.config.load()["action"])
+        self.bell_var = tk.IntVar(value=self.config.load()["bell"])
 
         self.setup_ui()
 
@@ -54,6 +55,7 @@ class ClamAVView:
         self.create_tabs()
         self.create_buttons()
         self.create_checkboxes()
+        self.create_comboboxes()
         # self.controller.get_version()  # Esto se realiza en el método set_view del controlador / This is done in the set_view method of the controller
 
     def center_window(self, window=None, marginx=100, marginy=100):
@@ -159,11 +161,13 @@ class ClamAVView:
                 self.config.save(
                     {
                         "recursive": self.checkbox_var_recursive.get(),
-                        "kill": self.checkbox_var_kill.get()
+                        "action": self.combobox_var.get(),
                     }
                 ),
-                self.button_save_config.config(text=self.texts[self.lang]['changes_saved']),
-                self.root.after(2000, lambda: self.button_save_config.config(text=self.texts[self.lang]['button_label5']))
+                self.button_save_config.config(
+                    text=self.texts[self.lang]['changes_saved']),
+                self.root.after(2000, lambda: self.button_save_config.config(
+                    text=self.texts[self.lang]['button_label5']))
             )
         )
 
@@ -175,18 +179,58 @@ class ClamAVView:
         """Crea los checkboxes de configuración / Creates the configuration checkboxes"""
         self.checkbox_recursive = tk.Checkbutton(
             self.config_frame,
-            text=self.texts[self.lang]['recursive_search'],
+            text=self.texts[self.lang]['checkbox_label1'],
             variable=self.checkbox_var_recursive
         )
-        self.checkbox_kill = tk.Checkbutton(
+
+        self.checkbox_bell = tk.Checkbutton(
             self.config_frame,
-            text=self.texts[self.lang]['delete_threats'],
-            variable=self.checkbox_var_kill
+            text=self.texts[self.lang]['checkbox_label3'],
+            variable=self.bell_var
         )
 
         self.checkbox_recursive.pack(pady=5, padx=5, anchor="w")
-        self.checkbox_kill.pack(pady=5, padx=5, anchor="w")
-        self.button_save_config.pack(fill="x", padx=10, pady=10)
+        #self.checkbox_bell.pack(pady=(0, 10), padx=5, anchor="w") 
+        # Parece que el argumento --bell no funciona en la versión actual de ClamAV / It seems that the --bell argument does not work in the current version of ClamAV
+
+        
+    def create_comboboxes(self):
+        ## 0 = No hacer nada / 0 = Do nothing 1 = Mover a carpeta designada / 1 = Move to designated folder 2 = Eliminar / 2 = Remove
+        self.combobox_options = [self.texts[self.lang]['combox_label1'],
+                        self.texts[self.lang]['combox_label2'],
+                        self.texts[self.lang]['combox_label3']]
+        self.combobox = ttk.Combobox(
+            self.config_frame, values=self.combobox_options, state="readonly")
+
+        # Obtener el valor entero actual de combobox_var (0, 1 o 2) / Get the current integer value of combobox_var (0, 1, or 2)
+        current_value = self.combobox_var.get()
+        self.combobox.set(self.combobox_options[current_value])
+
+        def on_combobox_select(event):
+            # Obtener el valor seleccionado como cadena / Get the selected value as a string
+            selected_string = self.combobox.get()
+            # Obtener el índice del valor seleccionado / Get the index of the selected value
+            selected_index = self.combobox_options.index(selected_string)
+            # Actualizar el valor de combobox_var / Update the value of combobox_var
+            if selected_index == 2:
+                messagebox.showwarning(
+                    title=self.texts[self.lang]["warning_title"], 
+                    message=self.texts[self.lang]['delete_disclaimer']
+                )
+                
+            self.combobox_var.set(selected_index)
+
+        # Vincular el evento de selección / Bind the selection event
+        self.combobox.bind("<<ComboboxSelected>>", on_combobox_select)
+
+        self.combobox_label = ttk.Label(
+            self.config_frame,
+            text=self.texts[self.lang]['config_options_label'],
+        )
+
+        self.combobox_label.pack(pady=1, padx=15, anchor="w")
+        self.combobox.pack(fill='x', expand=True, pady=5, padx=15)
+        self.button_save_config.pack(pady=(5, 10), padx=5)
 
     def update_texts(self):
         """Actualiza los textos de la interfaz al cambiar el idioma / Updates the texts of the interface when changing the language"""
@@ -209,8 +253,14 @@ class ClamAVView:
             text=self.texts[self.lang]["button_label5"])
         self.checkbox_recursive.config(
             text=self.texts[self.lang]["checkbox_label1"])
-        self.checkbox_kill.config(
-            text=self.texts[self.lang]["checkbox_label2"])
+        self.combobox_label.config(
+            text=self.texts[self.lang]["config_options_label"])
+        
+        self.combobox_options = [self.texts[self.lang]['combox_label1'],
+                        self.texts[self.lang]['combox_label2'],
+                        self.texts[self.lang]['combox_label3']]
+        self.combobox['values'] = self.combobox_options
+        self.combobox.set(self.combobox_options[self.combobox_var.get()])
 
         self.create_menu()
 
@@ -266,7 +316,8 @@ class ClamAVView:
     def show_about_window(self, version):
         """Muestra la ventana Acerca de / Shows the About window"""
         about_window = tk.Toplevel(self.root)
-        about_window.title("About")
+        about_window.title(self.texts[self.lang]['about_title'])
+        about_window.resizable(False, False)
         self.center_window(about_window)
 
         try:

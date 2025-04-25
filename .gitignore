@@ -1,7 +1,9 @@
-# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files 
 __pycache__/
 *.py[cod]
 *$py.class
+
+
 
 # Distribution / packaging
 .Python
@@ -13,6 +15,8 @@ venv.bak/
 *.egg-info/
 dist/
 build/
+*.spec 
+# .spec is used by PyInstaller to create executables 
 
 # Installer logs
 pip-log.txt
@@ -44,3 +48,6 @@ htmlcov/
 *.bak
 *.orig
 *.rej
+
+# Config files
+.config.json

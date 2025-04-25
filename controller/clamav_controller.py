@@ -4,7 +4,7 @@ import os
 from model.config_model import ConfigModel
 from pathlib import Path
 
-VERSION = "0.0.5"
+VERSION = "0.1.0"
 
 
 class ClamAVController:
@@ -64,16 +64,29 @@ class ClamAVController:
 
     def start_scan(self, path):
         """Inicia el proceso de escaneo en un hilo separado / Starts the scanning process in a separate thread"""
+        # Recupera los valores de los checkboxes para determinar los argumentos del escaneo / Retrieves the checkbox values to determine the scan arguments
         recursive = self.view.checkbox_var_recursive.get() == 1
-        remove_threats = self.view.checkbox_var_kill.get() == 1
+        bell = self.view.bell_var.get() == 1
+        action = self.view.combobox_var.get()
 
-        scan_window, progressbar, label_loading = self.view.show_scan_window(
-            path)
+        # Determina la acción a realizar según la opción seleccionada / Determines the action to take based on the selected option
+        if (action == 0):
+            remove_threats = False
+            move_to_quarantine = False
+        elif (action == 1):
+            remove_threats = False
+            move_to_quarantine = True
+        elif (action == 2):
+            remove_threats = True
+            move_to_quarantine = False
+
+        # Muestra la ventana de escaneo / Shows the scan window
+        scan_window, progressbar, label_loading = self.view.show_scan_window(path)
 
         # Inicia el escaneo en un hilo / Starts the scan in a thread
         threading.Thread(
             target=self.model.run_scan_thread,
-            args=(path, recursive, remove_threats),
+            args=(path, recursive, remove_threats, move_to_quarantine, bell),
             daemon=True
         ).start()
 

@@ -4,8 +4,10 @@ class ConfigModel:
     def __init__(self, config_path):
         self.config_path = config_path
         self.default_config = {
-            "recursive": 1,
-            "kill": 0,
+            "recursive": 0, 
+            "action": 0, 
+            "__comment__": "action: 0 = no action, 1 = quarantine, 2 = remove",
+            "bell":0,
             "lang": "en"
         }
 

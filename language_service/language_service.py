@@ -3,7 +3,7 @@ class LanguageService:
     def load_texts():
         return {
             "es": {
-                "app_title": "ClamAV Tkinter - Escáner de archivos y directorios",
+                "app_title": "YAGC - Escáner de archivos y directorios",
                 "menu_bar1": "Idioma",
                 "menu_bar2": "Ayuda",
                 "language_menu1": "English",
@@ -19,8 +19,19 @@ class LanguageService:
                 "button_label4": "Actualizar base de datos",
                 "button_label5": "Guardar cambios",
                 "changes_saved": "¡Cambios guardados!",
-                "checkbox_label1": "Buscar amenazas de manera recursiva",
+
+                "checkbox_label1": "Escanear también las subcarpetas",
                 "checkbox_label2": "Eliminar amenazas encontradas",
+                "checkbox_label3": "Sonar al encontrar amenazas",
+
+                "config_options_label": "Que hacer con los archivos infectados:",
+                "combox_label1": "No hacer nada",
+                "combox_label2": "Mover a carpeta designada",
+                "combox_label3": "Eliminar",
+
+                "warning_title": "Advertencia",
+                "delete_disclaimer": "Cuidado: Eliminar archivos puede ser peligroso. Considerá usar la opción de mover. Los falsos positivos pueden provocar pérdidas de archivos importantes.",
+
                 "version_label": "Versión de ClamAV: ",
                 "database_label": "Versión de la base de datos: ",
                 "exit_label": "Salir",
@@ -44,22 +55,22 @@ class LanguageService:
                 "generic_error": "Error:",
                 "loading_message": "Cargando, por favor espere...",
                 "error_message": "Hubo un error. Por favor, intente nuevamente.",
-                "about_message": "ClamAV Tkinter es una interfaz gráfica para el escaneo de archivos y directorios usando el motor ClamAV.",
+                "about_message": "YAGC es una interfaz gráfica para el escaneo de archivos y directorios usando el motor ClamAV.",
                 "scan": "Escaneando",
                 "scan_complete": "Escaneo Completado",
                 "stdout": "Salida estándar",
                 "stderr": "Salida de error",
                 "result_saved": "Resultado guardado en",
-                "recursive_search": "Buscar amenazas de manera recursiva",
-                "delete_threats": "Eliminar amenazas encontradas",
+               
                 "version": "Versión",
-                "about": "ClamAV GUI es una interfaz gráfica de usuario (GUI) diseñada para facilitar el uso "
+                "about": "YAGC es una interfaz gráfica de usuario (GUI) diseñada para facilitar el uso "
                 "de ClamAV, un software antivirus de código abierto. Esta aplicación está inspirada en proyectos "
                 "como ClamWin y ClamTk, y ofrece una experiencia más accesible y visual para los usuarios que desean "
-                "realizar escaneos antivirus en sus sistemas de forma rápida y sencilla."
+                "realizar escaneos antivirus en sus sistemas de forma rápida y sencilla.",
+                "about_title": "YAGC",
             },
             "en": {
-                "app_title": "ClamAV Tkinter - File and Directory Scanner",
+                "app_title": "YAGC - File and Directory Scanner",
                 "menu_bar1": "Language",
                 "menu_bar2": "Help",
                 "language_menu1": "English",
@@ -75,8 +86,18 @@ class LanguageService:
                 "button_label4": "Update database",
                 "button_label5": "Save changes",
                 "changes_saved": "Changes saved!",
-                "checkbox_label1": "Search for threats recursively",
+                "checkbox_label1": "Scan subfolders as well",
                 "checkbox_label2": "Remove found threats",
+                "checkbox_label3": "Sound alarm when threats are found",
+
+                "combox_label1": "Do nothing",
+                "combox_label2": "Move to designated folder",
+                "combox_label3": "Delete",
+                "config_options_label": "What to do with infected files:",
+
+                "warning_title": "Warning",
+                "delete_disclaimer": "Warning: Deleting files can be dangerous. Consider using the move option. False positives can lead to loss of important files.",
+
                 "version_label": "ClamAV Version: ",
                 "database_label": "Database Version: ",
                 "exit_label": "Exit",
@@ -100,15 +121,15 @@ class LanguageService:
                 "generic_error": "Error:",
                 "loading_message": "Loading, please wait...",
                 "error_message": "An error occurred. Please try again.",
-                "about_message": "ClamAV Tkinter is a graphical interface for scanning files and directories using the ClamAV engine.",
+                "about_message": "YAGC is a graphical interface for scanning files and directories using the ClamAV engine.",
                 "scan": "Scanning",
                 "scan_complete": "Scan Complete",
                 "stdout": "Standard output",
                 "stderr": "Error output",
                 "result_saved": "Result saved at",
-                "recursive_search": "Search for threats recursively",
-                "delete_threats": "Delete found threats",
+              
                 "version": "Version",
-                "about": "ClamAV GUI is a graphical user interface designed to simplify the use of ClamAV, an open-source antivirus software. This application is inspired by projects such as ClamWin and ClamTk, and provides a more accessible and visual experience for users who wish to perform antivirus scans on their systems quickly and easily."
+                "about": "YAGC (Yet Another GUI for ClamAV) is a graphical user interface designed to simplify the use of ClamAV, an open-source antivirus software. This application is inspired by projects such as ClamWin and ClamTk, and provides a more accessible and visual experience for users who wish to perform antivirus scans on their systems quickly and easily.",
+                "about_title": "YAGC",
             }
         }

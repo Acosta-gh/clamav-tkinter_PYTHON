@@ -5,21 +5,21 @@ from controller.clamav_controller import ClamAVController
 from language_service.language_service import LanguageService 
 
 def main():
-    # Initialize MVC components / Inicializar componentes MVC  
+    # Inicializar componentes MVC / Initialize MVC components
     root = tk.Tk()
   
-    # Load texts for different languages / Cargar textos para diferentes idiomas  
+    # Cargar textos para diferentes idiomas / Load texts for different languages 
     texts = LanguageService.load_texts()
     
-    # Create the model, controller, and view / Crear el modelo, controlador y vista 
+    # Crear el modelo, controlador y vista / Create the model, controller and view
     model = ClamAVModel()
     controller = ClamAVController(model, texts)
     view = ClamAVView(root, controller, texts)
     
-    # Set the view in the controller / Establecer la vista en el controlador  
+    # Establecer la vista en el controlador / Set the view in the controller
     controller.set_view(view)
     
-    # Start the application / Iniciar la aplicación
+    # Iniciar la aplicación / Start the application
     root.mainloop()
 
 if __name__ == "__main__":

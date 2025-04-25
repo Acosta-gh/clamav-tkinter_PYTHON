@@ -13,13 +13,15 @@ class ClamAVModel:
         base_dir.mkdir(exist_ok=True)
         self.history_dir = base_dir / "ClamAV_History"
         self.history_dir.mkdir(exist_ok=True)
+        self.infected_files_dir = base_dir / "Infected_Files"
+        self.infected_files_dir.mkdir(exist_ok=True)
 
         # Inicializa la cola de resultados / Initialize the result queue
         self.result_queue = queue.Queue()
         self.version_info = {"version": "", "db_date": None}
 
-    def scan(self, path, recursive=True, remove_threats=False):
-        """Ejecuta un escaneo ClamAV y devuelve los resultados / Runs a ClamAV scan and returns the results"""
+    """
+    def scan(self, path, recursive=True, remove_threats=False, move_to_quarantine=False):
         args = ['clamscan']
 
         if recursive:
@@ -27,6 +29,9 @@ class ClamAVModel:
 
         if remove_threats:
             args.append('--remove')
+
+        if move_to_quarantine:
+            args.append(f'--move={self.infected_files_dir}')
 
         args.append(path)
 
@@ -34,11 +39,12 @@ class ClamAVModel:
             result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             return result
         except Exception as e:
-            return e
+            return e 
+    """
 
-    def run_scan_thread(self, path, recursive=True, remove_threats=False):
+    def run_scan_thread(self, path, recursive=False, remove_threats=False, move_to_quarantine=False, bell=True):
         """Ejecuta un escaneo en un hilo y lo pone en una cola / Runs a scan in a thread and puts it in a queue"""
-        args = ['clamscan']
+        args = ['clamscan'] # Comando de ClamAV / ClamAV command
 
         if recursive:
             args.append('-r')
@@ -46,8 +52,18 @@ class ClamAVModel:
         if remove_threats:
             args.append('--remove')
 
-        args.append(path)
+        if bell:
+            args.append('--bell')
 
+        if move_to_quarantine:
+            args.append(f'--move={self.infected_files_dir}')
+
+        if remove_threats and move_to_quarantine:
+            raise ValueError("No se puede usar '--remove' y '--move' al mismo tiempo.")
+            
+        
+        args.append(path) # Agrega la ruta al final de los argumentos / Adds the path at the end of the arguments
+        print(f"Running scan with args: {args}")
         try:
             result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             self.result_queue.put(result)
