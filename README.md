@@ -11,7 +11,7 @@ YAGC is a graphical user interface (GUI) designed to make using ClamAV—an open
     
 -   **Scan history:** Saves the results of each scan and allows you to view them later.
     
--   **Database update:** Updates the virus database using `freshclam` .
+-   **Database update:** Updates the virus database using `freshclam`.
     
 -   **ClamAV version detection:** Checks the installed version and the date of the last update.
     
@@ -75,6 +75,13 @@ To open the graphical interface:
 
 ![Image](https://github.com/user-attachments/assets/dfb5e2d8-8416-4692-869a-cd85de794463)
 
+
+## 🛠️ Tasks to be done
+- [ ] Improve and optimize the code (High priority)
+- [ ] Switch from `ttk` to `tkbootstrap` (Medium priority)
+- [ ] Continue implementing options after switching to `tkbootstrap` (Medium priority)
+- [ ] Create an executable with `AppImage` (Low priority)
+- [ ] Port the app to `GTK 3` (No priority)
 
 Icon credit: : [diamonjohn on Openclipart](https://openclipart.org/artist/diamonjohn)
 
@@ -163,5 +170,13 @@ Para abrir la interfaz gráfica:
 ![Image](https://github.com/user-attachments/assets/09942eda-4fe3-464f-adcc-77ea57ba5df4)
 
 ![Image](https://github.com/user-attachments/assets/dfb5e2d8-8416-4692-869a-cd85de794463)
+
+
+## 🛠️ Tareas por hacer
+- [ ] Mejorar y optimizar el código (Prioridad alta)
+- [ ] Cambiar de `ttk` a `tkbootstrap` (Prioridad media)
+- [ ] Seguir implementando opciones después de cambiar a `tkbootstrap` (Prioridad media)
+- [ ] Crear un ejecutable con `AppImage` (Prioridad baja)
+- [ ] Portear la aplicación a `GTK 3` (Prioridad nula)
 
 Crédito del icono: [diamonjohn en Openclipart](https://openclipart.org/artist/diamonjohn)
