@@ -11,7 +11,7 @@ YAGC is a graphical user interface (GUI) designed to make using ClamAV—an open
     
 -   **Scan history:** Saves the results of each scan and allows you to view them later.
     
--   **Database update:** Updates the virus database using `freshclam`.
+-   **Database update:** Updates the virus database using `freshclam` .
     
 -   **ClamAV version detection:** Checks the installed version and the date of the last update.
     
