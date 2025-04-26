@@ -56,15 +56,7 @@ sudo apt install clamav clamav-daemon
 
 To open the graphical interface:
 
-1. **Open a terminal**  
-
-2. **Navigate to the project folder**  
-   If you followed the steps above:
-   ```
-   cd ~/clamav-tkinter
-   ```
-
-3. **Run the program**  
+1. **Run the program**  
    Inside the terminal, type:
    ```
    python3 main.py
@@ -158,15 +150,7 @@ sudo apt install clamav clamav-daemon
 
 Para abrir la interfaz gráfica:
 
-1. **Abre una terminal**
-
-2. **Navega a la carpeta del proyecto**  
-   Si seguiste los pasos anteriores:
-   ```
-   cd ~/clamav-tkinter
-   ```
-
-3. **Ejecuta el programa**  
+1. **Ejecuta el programa**  
    Dentro de la terminal, escribe:
    ```
    python3 main.py
