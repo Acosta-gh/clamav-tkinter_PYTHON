@@ -28,25 +28,31 @@ YAGC is a graphical user interface (GUI) designed to simplify the use of ClamAV,
 1.  Clone this repository by opening a terminal and running the following commands:
     
 ```
-git clone https://github.com/tu-usuario/clamav-tkinter.git
+git clone https://github.com/Acosta-gh/clamav-tkinter_PYTHON.git
 cd clamav-tkinter
 ```
 
-2.  Install dependencies (if needed):
-    
-Make sure you have `tkinter` installed. On Ubuntu/Debian, you can install it with:
+2. Create a virtual environment
+It's a good practice to isolate your project dependencies using a virtual environment:
 ```
-sudo apt install python3-tk
+python3 -m venv venv
+source venv/bin/activate
+```
+3. Install dependencies (if needed):
+    
+Make sure you have `ttkbootstrap` installed. On Ubuntu/Debian, you can install it with:
+```
+pip install ttkbootstrap
 ```
 
-3. You also need to have ClamAV installed:
+4. You also need to have ClamAV installed:
 
 ```
 sudo apt update
 sudo apt install clamav clamav-daemon
 ```
 
-4. Run the application
+5. Run the application
 
 To open the graphical interface:
 
@@ -122,11 +128,18 @@ sudo apt install clamav clamav-daemon
 1. Clona este repositorio abriendo una terminal y ejecutando los siguientes comandos:
 
 ```
-git clone https://github.com/tu-usuario/clamav-tkinter.git
+git clone https://github.com/Acosta-gh/clamav-tkinter_PYTHON.git
 cd clamav-tkinter
 ```
 
-2. Instala las dependencias (si es necesario):
+2. Crear un entorno virtual
+Es una buena práctica aislar las dependencias de tu proyecto utilizando un entorno virtual:
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Instala las dependencias (si es necesario):
 
 Asegúrate de tener `tkinter` instalado. En Ubuntu/Debian, puedes instalarlo con:
 
@@ -134,14 +147,14 @@ Asegúrate de tener `tkinter` instalado. En Ubuntu/Debian, puedes instalarlo con
 sudo apt install python3-tk
 ```
 
-3. También necesitas tener ClamAV instalado:
+4. También necesitas tener ClamAV instalado:
 
 ```
 sudo apt update
 sudo apt install clamav clamav-daemon
 ```
 
-4. Ejecuta la aplicación
+5. Ejecuta la aplicación
 
 Para abrir la interfaz gráfica:
 

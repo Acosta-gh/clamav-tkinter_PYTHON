@@ -17,7 +17,7 @@ class ClamAVView:
     def __init__(self, root, controller, texts):
         self.root = root
         self.controller = controller
-
+        
         # Ruta al archivo de configuración
         self.path_config_file = Path.home() / "ClamAVTkinter" / ".config.json"
         self.path_config_file.parent.mkdir(
