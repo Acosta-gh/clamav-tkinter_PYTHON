@@ -1,4 +1,6 @@
 import tkinter as tk
+import ttkbootstrap as ttk
+
 from model.clamav_model import ClamAVModel
 from view.clamav_view import ClamAVView
 from controller.clamav_controller import ClamAVController
@@ -6,8 +8,9 @@ from language_service.language_service import LanguageService
 
 def main():
     # Inicializar componentes MVC / Initialize MVC components
-    root = tk.Tk()
-  
+    #root = tk.Tk()
+    root = ttk.Window(themename="flatly")
+
     # Cargar textos para diferentes idiomas / Load texts for different languages 
     texts = LanguageService.load_texts()
     

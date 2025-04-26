@@ -1,9 +1,14 @@
-import tkinter as tk
-from tkinter import ttk, messagebox
-from tkinter.filedialog import askopenfilename, askdirectory
-from datetime import datetime
-from tkinter import PhotoImage
 import os
+
+import tkinter as tk
+#from tkinter import ttk
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
+
+from tkinter import messagebox
+#from tkinter.filedialog import askopenfilename, askdirectory
+#from datetime import datetime
+from tkinter import PhotoImage
 from pathlib import Path
 from model.config_model import ConfigModel
 
@@ -106,7 +111,7 @@ class ClamAVView:
 
     def create_tabs(self):
         """Crea las pestañas de la aplicación / Creates the tabs of the application"""
-        self.tabs_notebook = ttk.Notebook(self.root)
+        self.tabs_notebook = ttk.Notebook(self.root, bootstyle="default")
         self.tabs_notebook.pack(fill="both", expand=True, pady=10, padx=5)
 
         self.scan_frame = ttk.Frame(self.tabs_notebook)
@@ -130,30 +135,21 @@ class ClamAVView:
             text=self.texts[self.lang]["button_label1"],
             command=self.controller.scan_a_file
         )
-        self.button_scan_a_file.pack(fill="x", pady=10, padx=10)
-
         self.button_scan_a_directory = ttk.Button(
             self.scan_frame,
             text=self.texts[self.lang]["button_label2"],
             command=self.controller.scan_a_directory
         )
-        self.button_scan_a_directory.pack(fill="x", pady=5, padx=10)
-
         self.button_view_history = ttk.Button(
             self.history_frame,
             text=self.texts[self.lang]["button_label3"],
             command=self.controller.view_history
         )
-        self.button_view_history.pack(fill="x", pady=10, padx=10)
-
         self.button_update_database = ttk.Button(
             self.update_frame,
             text=self.texts[self.lang]["button_label4"],
             command=self.controller.update_database
         )
-        self.button_update_database.pack(fill="x", padx=10, pady=10)
-
-        # Botón para guardar la configuración / Button to save the configuration
         self.button_save_config = ttk.Button(
             self.config_frame,
             text=self.texts[self.lang]["button_label5"],
@@ -171,16 +167,21 @@ class ClamAVView:
             )
         )
 
+        self.button_scan_a_file.pack(fill="x", pady=10, padx=10)
+        self.button_scan_a_directory.pack(fill="x", pady=5, padx=10)
+        self.button_view_history.pack(fill="x", pady=10, padx=10)
+        self.button_update_database.pack(fill="x", padx=10, pady=10)
         self.label_version = ttk.Label(
             self.update_frame, text="", wraplength=280)
         self.label_version.pack(padx=10, pady=10)
 
     def create_checkboxes(self):
         """Crea los checkboxes de configuración / Creates the configuration checkboxes"""
-        self.checkbox_recursive = tk.Checkbutton(
+        self.checkbox_recursive = ttk.Checkbutton(
             self.config_frame,
             text=self.texts[self.lang]['checkbox_label1'],
-            variable=self.checkbox_var_recursive
+            variable=self.checkbox_var_recursive,
+            bootstyle="round-toggle"
         )
 
         self.checkbox_bell = tk.Checkbutton(
@@ -189,7 +190,7 @@ class ClamAVView:
             variable=self.bell_var
         )
 
-        self.checkbox_recursive.pack(pady=5, padx=5, anchor="w")
+        self.checkbox_recursive.pack(pady=15, padx=15, anchor="w")
         #self.checkbox_bell.pack(pady=(0, 10), padx=5, anchor="w") 
         # Parece que el argumento --bell no funciona en la versión actual de ClamAV / It seems that the --bell argument does not work in the current version of ClamAV
 
@@ -230,7 +231,7 @@ class ClamAVView:
 
         self.combobox_label.pack(pady=1, padx=15, anchor="w")
         self.combobox.pack(fill='x', expand=True, pady=5, padx=15)
-        self.button_save_config.pack(pady=(5, 10), padx=5)
+        self.button_save_config.pack(pady=(15, 15), padx=5)
 
     def update_texts(self):
         """Actualiza los textos de la interfaz al cambiar el idioma / Updates the texts of the interface when changing the language"""
@@ -286,6 +287,11 @@ class ClamAVView:
 
     def show_scan_results(self, newWindow, result, filepath):
         """Muestra los resultados del escaneo / Shows the scan results"""
+
+        if not newWindow.winfo_exists():
+            print("The scan window does not exist.")
+            return
+    
         newWindow.title(self.texts[self.lang]['scan_complete'])
         self.center_window(newWindow, 500, 250)
 

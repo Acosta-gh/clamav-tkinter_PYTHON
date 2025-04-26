@@ -20,28 +20,6 @@ class ClamAVModel:
         self.result_queue = queue.Queue()
         self.version_info = {"version": "", "db_date": None}
 
-    """
-    def scan(self, path, recursive=True, remove_threats=False, move_to_quarantine=False):
-        args = ['clamscan']
-
-        if recursive:
-            args.append('-r')
-
-        if remove_threats:
-            args.append('--remove')
-
-        if move_to_quarantine:
-            args.append(f'--move={self.infected_files_dir}')
-
-        args.append(path)
-
-        try:
-            result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            return result
-        except Exception as e:
-            return e 
-    """
-
     def run_scan_thread(self, path, recursive=False, remove_threats=False, move_to_quarantine=False, bell=True):
         """Ejecuta un escaneo en un hilo y lo pone en una cola / Runs a scan in a thread and puts it in a queue"""
         args = ['clamscan'] # Comando de ClamAV / ClamAV command
@@ -60,7 +38,6 @@ class ClamAVModel:
 
         if remove_threats and move_to_quarantine:
             raise ValueError("No se puede usar '--remove' y '--move' al mismo tiempo.")
-            
         
         args.append(path) # Agrega la ruta al final de los argumentos / Adds the path at the end of the arguments
         print(f"Running scan with args: {args}")

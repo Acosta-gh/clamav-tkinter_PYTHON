@@ -27,7 +27,7 @@ class LanguageService:
                 "config_options_label": "Que hacer con los archivos infectados:",
                 "combox_label1": "No hacer nada",
                 "combox_label2": "Mover a carpeta designada",
-                "combox_label3": "Eliminar",
+                "combox_label3": "Borrarlos",
 
                 "warning_title": "Advertencia",
                 "delete_disclaimer": "Cuidado: Eliminar archivos puede ser peligroso. Considerá usar la opción de mover. Los falsos positivos pueden provocar pérdidas de archivos importantes.",
@@ -92,7 +92,7 @@ class LanguageService:
 
                 "combox_label1": "Do nothing",
                 "combox_label2": "Move to designated folder",
-                "combox_label3": "Delete",
+                "combox_label3": "Delete them",
                 "config_options_label": "What to do with infected files:",
 
                 "warning_title": "Warning",
