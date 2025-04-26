@@ -33,9 +33,10 @@ class ClamAVView:
         self.texts = texts
 
         # Cargar el icono / Load the icon
-        self.script_dir = os.path.dirname(os.path.realpath(__file__))
-        self.parent_dir = os.path.dirname(self.script_dir)
-        self.icon_path = os.path.join(self.parent_dir, "shield.png")
+        #self.script_dir = os.path.dirname(os.path.realpath(__file__))
+        #self.parent_dir = os.path.dirname(self.script_dir)
+        #self.icon_path = os.path.join(self.parent_dir, "shield.png")
+        self.icon_path = Path(__file__).resolve().parent.parent / "shield.png"
 
         try:
             self.icon_image = PhotoImage(file=self.icon_path)
@@ -61,13 +62,14 @@ class ClamAVView:
         self.create_buttons()
         self.create_checkboxes()
         self.create_comboboxes()
-        # self.controller.get_version()  # Esto se realiza en el método set_view del controlador / This is done in the set_view method of the controller
+
+        # self.controller.get_version()  # No descomentar, esto se realiza en el método set_view del controlador / This is done in the set_view method of the controller
 
     def center_window(self, window=None, marginx=100, marginy=100):
         """Centra una ventana en la pantalla / Centers a window on the screen"""
         if window is None:
             window = self.root
-
+        
         screen_width = window.winfo_screenwidth()
         screen_height = window.winfo_screenheight()
         window_width = window.winfo_width()
@@ -171,8 +173,7 @@ class ClamAVView:
         self.button_scan_a_directory.pack(fill="x", pady=5, padx=10)
         self.button_view_history.pack(fill="x", pady=10, padx=10)
         self.button_update_database.pack(fill="x", padx=10, pady=10)
-        self.label_version = ttk.Label(
-            self.update_frame, text="", wraplength=280)
+        self.label_version = ttk.Label(self.update_frame, text="", wraplength=280)
         self.label_version.pack(padx=10, pady=10)
 
     def create_checkboxes(self):
@@ -181,15 +182,13 @@ class ClamAVView:
             self.config_frame,
             text=self.texts[self.lang]['checkbox_label1'],
             variable=self.checkbox_var_recursive,
-            bootstyle="round-toggle"
+            bootstyle="square-toggle"
         )
-
         self.checkbox_bell = tk.Checkbutton(
             self.config_frame,
             text=self.texts[self.lang]['checkbox_label3'],
             variable=self.bell_var
         )
-
         self.checkbox_recursive.pack(pady=15, padx=15, anchor="w")
         #self.checkbox_bell.pack(pady=(0, 10), padx=5, anchor="w") 
         # Parece que el argumento --bell no funciona en la versión actual de ClamAV / It seems that the --bell argument does not work in the current version of ClamAV
@@ -328,7 +327,7 @@ class ClamAVView:
 
         try:
             about_image_original = tk.PhotoImage(file=self.icon_path)
-            about_image = about_image_original.subsample(3, 3)
+            about_image = about_image_original.subsample(5, 5)
 
             image_label = tk.Label(about_window, image=about_image)
             # ¡Importante! Mantener la referencia a la imagen. / Important! Keep the reference to the image.
