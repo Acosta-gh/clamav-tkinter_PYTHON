@@ -83,7 +83,7 @@ To open the graphical interface:
 - [ ] Create an executable with `AppImage` (Low priority)
 - [ ] Port the app to `GTK 3` (No priority)
 
-Icon credit: : <a href="https://pixabay.com/users/openicons-28911/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98528">OpenIcons</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98528">Pixabay</a>
+Icon credit: <a href="https://pixabay.com/users/openicons-28911/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98528">OpenIcons</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98528">Pixabay</a>
 
 
 ### 🇪🇸 Español
