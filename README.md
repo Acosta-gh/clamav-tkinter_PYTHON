@@ -65,16 +65,15 @@ To open the graphical interface:
    ```
 
 ## Screenshots
-![Image](https://github.com/user-attachments/assets/af91a543-87f0-4411-a670-b4210452302e)
+![Image](https://github.com/user-attachments/assets/10a0fb3d-f318-441b-a127-47ce1decee50)
 
-![Image](https://github.com/user-attachments/assets/a04a4c49-063b-42e5-acd4-17b4f46776cd)
+![Image](https://github.com/user-attachments/assets/12b176d7-35e8-439f-bf6f-b12b722eb85d)
 
-![Image](https://github.com/user-attachments/assets/f5ccb8e2-d5c3-4e0f-9a00-562211694d3a)
+![Image](https://github.com/user-attachments/assets/fe0d56e1-5fb8-4424-87a7-03f7a9b792c5)
 
-![Image](https://github.com/user-attachments/assets/09942eda-4fe3-464f-adcc-77ea57ba5df4)
+![Image](https://github.com/user-attachments/assets/d69f013e-d5cd-437e-a664-3fedbdb64553)
 
-![Image](https://github.com/user-attachments/assets/dfb5e2d8-8416-4692-869a-cd85de794463)
-
+![Image](https://github.com/user-attachments/assets/502a5fed-0c3f-41c7-bb91-de716407cc35)
 
 ## 📝 Tasks to be done
 - [ ] Improve and optimize the code (High priority)
@@ -161,15 +160,15 @@ Para abrir la interfaz gráfica:
    ```
 
 ## Imagenes
-![Image](https://github.com/user-attachments/assets/af91a543-87f0-4411-a670-b4210452302e)
+![Image](https://github.com/user-attachments/assets/bb599918-1d52-4537-bb00-ac41cdca3a81)
 
-![Image](https://github.com/user-attachments/assets/a04a4c49-063b-42e5-acd4-17b4f46776cd)
+![Image](https://github.com/user-attachments/assets/6a678025-3f61-4de7-88d7-4c645e59c271)
 
-![Image](https://github.com/user-attachments/assets/f5ccb8e2-d5c3-4e0f-9a00-562211694d3a)
+![Image](https://github.com/user-attachments/assets/d92560dc-5c04-4234-977d-ab4c53e4ffdc)
 
-![Image](https://github.com/user-attachments/assets/09942eda-4fe3-464f-adcc-77ea57ba5df4)
+![Image](https://github.com/user-attachments/assets/ba98efa9-e766-4538-a510-c69e7224e645)
 
-![Image](https://github.com/user-attachments/assets/dfb5e2d8-8416-4692-869a-cd85de794463)
+![Image](https://github.com/user-attachments/assets/4eecd471-0bda-409a-ae42-9aef48f4cfc7)
 
 
 ## 📝 Tareas por hacer
