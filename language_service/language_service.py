@@ -3,6 +3,8 @@ class LanguageService:
     def load_texts():
         return {
             "es": {
+                "error_title": "Un error ha ocurrido",
+                "clamav_not_installed": "ClamAV no está instalado. Por favor, instálalo antes de usar esta aplicación.",
                 "app_title": "YAGC - Escáner de archivos y directorios",
                 "menu_bar1": "Idioma",
                 "menu_bar2": "Ayuda",
@@ -70,6 +72,8 @@ class LanguageService:
                 "about_title": "YAGC",
             },
             "en": {
+                "error_title": "An error has occurred",
+                "clamav_not_installed": "ClamAV is not installed. Please install it before using this application.",
                 "app_title": "YAGC - File and Directory Scanner",
                 "menu_bar1": "Language",
                 "menu_bar2": "Help",

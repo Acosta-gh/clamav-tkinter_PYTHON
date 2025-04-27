@@ -1,30 +1,23 @@
 import threading
 from tkinter import filedialog
 import os
-from model.config_model import ConfigModel
-from pathlib import Path
+
 
 VERSION = "0.1.2"
 
 
 class ClamAVController:
-    def __init__(self, model, texts):
-        self.model = model
+    def __init__(self, clamav_model, config_model, texts):
+        self.model = clamav_model
+        self.config = config_model
         self.texts = texts
-
-        # Ruta al archivo de configuración en $HOME/ClamAVTkinter/.config.json / Path to the configuration file in $HOME/ClamAVTkinter/.config.json
-        self.path_config_file = Path.home() / "ClamAVTkinter" / ".config.json"
-        self.path_config_file.parent.mkdir(parents=True, exist_ok=True)  # Asegura que exista el directorio / Ensure the directory exists
-        self.path_config_file.touch(exist_ok=True)  # Crea el archivo si no existe / Create the file if it doesn't exist
-
-        # Cargar la configuración / Load the configuration
-        self.config = ConfigModel(str(self.path_config_file))
         self.lang = self.config.load()["lang"]
         self.view = None
 
     def set_view(self, view):
         """Establece la referencia a la vista / Sets the reference to the view"""
         self.view = view
+        self.check_if_clamav_installed()
         self.get_version()
 
     def change_lang(self, lang):
@@ -38,6 +31,14 @@ class ClamAVController:
                 "lang": self.lang,
             }
         )
+
+    def check_if_clamav_installed(self):
+        """Verifica si ClamAV está instalado / Checks if ClamAV is installed"""
+        if not self.model.is_clamav_installed():
+            self.view.show_error_message(self.texts[self.lang]['clamav_not_installed'])
+            self.view.disable_buttons()
+            return False
+        return True
 
     def scan_a_file(self):
         """Inicia el escaneo de un archivo / Starts scanning a file"""
@@ -81,7 +82,8 @@ class ClamAVController:
             move_to_quarantine = False
 
         # Muestra la ventana de escaneo / Shows the scan window
-        scan_window, progressbar, label_loading = self.view.show_scan_window(path)
+        scan_window, progressbar, label_loading = self.view.show_scan_window(
+            path)
 
         # Inicia el escaneo en un hilo / Starts the scan in a thread
         threading.Thread(

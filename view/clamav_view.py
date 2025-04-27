@@ -14,28 +14,17 @@ from model.config_model import ConfigModel
 
 
 class ClamAVView:
-    def __init__(self, root, controller, texts):
+    def __init__(self, root, clamav_controller, config_controller ,texts):
         self.root = root
-        self.controller = controller
-        
-        # Ruta al archivo de configuración
-        self.path_config_file = Path.home() / "ClamAVTkinter" / ".config.json"
-        self.path_config_file.parent.mkdir(
-            parents=True, exist_ok=True)  # Crear directorio si no existe
 
-        # Crear archivo vacío si no existe (opcional)
-        self.path_config_file.touch(exist_ok=True)
-
-        self.config = ConfigModel(self.path_config_file)
+        self.controller = clamav_controller
+        self.config = config_controller
 
         # Cargar la configuración / Load the configuration
         self.lang = self.config.load()["lang"]
         self.texts = texts
 
         # Cargar el icono / Load the icon
-        #self.script_dir = os.path.dirname(os.path.realpath(__file__))
-        #self.parent_dir = os.path.dirname(self.script_dir)
-        #self.icon_path = os.path.join(self.parent_dir, "shield.png")
         self.icon_path = Path(__file__).resolve().parent.parent / "shield.png"
 
         try:
@@ -49,7 +38,6 @@ class ClamAVView:
             value=self.config.load()["recursive"])
         self.combobox_var = tk.IntVar(value=self.config.load()["action"])
         self.bell_var = tk.IntVar(value=self.config.load()["bell"])
-
         self.setup_ui()
 
     def setup_ui(self):
@@ -62,8 +50,21 @@ class ClamAVView:
         self.create_buttons()
         self.create_checkboxes()
         self.create_comboboxes()
-
         # self.controller.get_version()  # No descomentar, esto se realiza en el método set_view del controlador / This is done in the set_view method of the controller
+
+    def show_error_message(self, message):
+        """Muestra un mensaje de error / Shows an error message"""
+        messagebox.showerror(
+            title=self.texts[self.lang]['error_title'],
+            message=message
+        )
+
+    def disable_buttons(self):
+        """Desactiva los botones de la interfaz / Disables the interface buttons"""
+        self.button_scan_a_file.config(state="disabled")
+        self.button_scan_a_directory.config(state="disabled")
+        self.button_view_history.config(state="disabled")
+        self.button_update_database.config(state="disabled")
 
     def center_window(self, window=None, marginx=100, marginy=100):
         """Centra una ventana en la pantalla / Centers a window on the screen"""
@@ -173,6 +174,7 @@ class ClamAVView:
         self.button_scan_a_directory.pack(fill="x", pady=5, padx=10)
         self.button_view_history.pack(fill="x", pady=10, padx=10)
         self.button_update_database.pack(fill="x", padx=10, pady=10)
+        
         self.label_version = ttk.Label(self.update_frame, text="", wraplength=280)
         self.label_version.pack(padx=10, pady=10)
 

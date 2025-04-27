@@ -1,8 +1,9 @@
 import json
+import pathlib 
 
 class ConfigModel:
-    def __init__(self, config_path):
-        self.config_path = config_path
+    def __init__(self):
+        self.config_path = pathlib.Path.home() / "ClamAVTkinter" / ".config.json"
         self.default_config = {
             "recursive": 0, 
             "action": 0, 
