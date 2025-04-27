@@ -8,8 +8,8 @@ VERSION = "0.1.2"
 
 class ClamAVController:
     def __init__(self, clamav_model, config_model, texts):
-        self.model = clamav_model
-        self.config = config_model
+        self.model = clamav_model # Me gustaría no usar self.model y en su defecto usar self.clamav_model, pero no quiero cambiar el nombre de todos los métodos / I would like to not use self.model and instead use self.clamav_model, but I don't want to change the name of all the methods
+        self.config = config_model # Me gustaría no usar self.config y en su defecto usar self.config_model, pero no quiero cambiar el nombre de todos los métodos / I would like to not use self.config and instead use self.config_model, but I don't want to change the name of all the methods
         self.texts = texts
         self.lang = self.config.load()["lang"]
         self.view = None
@@ -17,8 +17,11 @@ class ClamAVController:
     def set_view(self, view):
         """Establece la referencia a la vista / Sets the reference to the view"""
         self.view = view
-        self.check_if_clamav_installed()
-        self.get_version()
+        
+        # self.check_if_clamav_installed()  
+        # Debo hacer esto en set_view porque la vista se inicializa antes de que el controlador / I have to do this in set_view because the view is initialized before the controller
+        # Si check_if_clamav_installed intentaba obtener la versión de clamav y fallaba significaba que clamav no estaba instalado, sin embargo self.get_version() ya lo hace por lo que no es necesario / check_if_clamav_installed was trying to get the clamav version and failed, meaning clamav was not installed, however self.get_version() already does it so it's not necessary
+        self.get_version() 
 
     def change_lang(self, lang):
         """Cambia el idioma de la aplicación / Changes the language of the application"""
@@ -32,13 +35,15 @@ class ClamAVController:
             }
         )
 
+    """
     def check_if_clamav_installed(self):
-        """Verifica si ClamAV está instalado / Checks if ClamAV is installed"""
+        # Verifica si ClamAV está instalado / Checks if ClamAV is installed
         if not self.model.is_clamav_installed():
             self.view.show_error_message(self.texts[self.lang]['clamav_not_installed'])
             self.view.disable_buttons()
             return False
         return True
+    """
 
     def scan_a_file(self):
         """Inicia el escaneo de un archivo / Starts scanning a file"""
@@ -159,6 +164,8 @@ class ClamAVController:
 
         if "error" in version_info:
             self.view.update_version_label(version_info["error"])
+            self.view.show_error_message(self.texts[self.lang]['clamav_not_installed'])
+            self.view.disable_buttons()
             return
 
         version = version_info["version"]

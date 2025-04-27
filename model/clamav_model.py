@@ -20,6 +20,7 @@ class ClamAVModel:
         self.result_queue = queue.Queue()
         self.version_info = {"version": "", "db_date": None}
 
+    """
     def is_clamav_installed(self):
         try:
             subprocess.run(["clamscan", "--version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -28,7 +29,8 @@ class ClamAVModel:
             return False
         except subprocess.CalledProcessError:
             return False
-
+    """
+    
     def run_scan_thread(self, path, recursive=False, remove_threats=False, move_to_quarantine=False, bell=True):
         """Ejecuta un escaneo en un hilo y lo pone en una cola / Runs a scan in a thread and puts it in a queue"""
         args = ['clamscan'] # Comando de ClamAV / ClamAV command
