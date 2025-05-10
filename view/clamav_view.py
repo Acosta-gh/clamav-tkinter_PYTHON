@@ -11,6 +11,7 @@ from tkinter import messagebox
 from tkinter import PhotoImage
 from pathlib import Path
 from model.config_model import ConfigModel
+from tkinter import filedialog
 
 
 class ClamAVView:
@@ -401,3 +402,19 @@ class ClamAVView:
             self.button_update_database["text"] = self.texts[self.lang]['database_updated']
         else:
             self.button_update_database.config(state="normal")
+
+    def ask_file(self):
+        return filedialog.askopenfilename(
+            title=self.texts[self.lang]['select_file'],
+            filetypes=[
+                (self.texts[self.lang]['all_files'], "*.*"),
+                (self.texts[self.lang]['text_files'], "*.txt"),
+                (self.texts[self.lang]['image_files'], "*.png *.jpg *.jpeg"),
+            ],
+            initialdir=os.path.expanduser("~")
+        )
+    def ask_directory(self):
+        return filedialog.askdirectory(
+            title=self.texts[self.lang]['select_directory'],
+            initialdir=os.path.expanduser("~")
+        )

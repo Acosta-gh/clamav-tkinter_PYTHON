@@ -1,9 +1,9 @@
 import threading
-from tkinter import filedialog
 import os
+from datetime import datetime
 
 
-VERSION = "0.1.2"
+VERSION = "0.1.25"
 
 
 class ClamAVController:
@@ -17,7 +17,8 @@ class ClamAVController:
     def set_view(self, view):
         """Establece la referencia a la vista / Sets the reference to the view"""
         self.view = view
-        
+        self.check_if_installed() 
+
         # self.check_if_clamav_installed()  
         # Debo hacer esto en set_view porque la vista se inicializa antes de que el controlador / I have to do this in set_view because the view is initialized before the controller
         # Si check_if_clamav_installed intentaba obtener la versión de clamav y fallaba significaba que clamav no estaba instalado, sin embargo self.get_version() ya lo hace por lo que no es necesario / check_if_clamav_installed was trying to get the clamav version and failed, meaning clamav was not installed, however self.get_version() already does it so it's not necessary
@@ -47,24 +48,13 @@ class ClamAVController:
 
     def scan_a_file(self):
         """Inicia el escaneo de un archivo / Starts scanning a file"""
-        path = filedialog.askopenfilename(
-            title=self.texts[self.lang]['select_file'],
-            filetypes=[
-                (self.texts[self.lang]['all_files'], "*.*"),
-                (self.texts[self.lang]['text_files'], "*.txt"),
-                (self.texts[self.lang]['image_files'], "*.png *.jpg *.jpeg"),
-            ],
-            initialdir=os.path.expanduser("~")
-        )
+        path = self.view.ask_file()
         if path:
             self.start_scan(path)
 
     def scan_a_directory(self):
         """Inicia el escaneo de un directorio / Starts scanning a directory"""
-        path = filedialog.askdirectory(
-            title=self.texts[self.lang]['select_directory'],
-            initialdir=os.path.expanduser("~")
-        )
+        path = self.view.ask_directory()
         if path:
             self.start_scan(path)
 
@@ -158,32 +148,35 @@ class ClamAVController:
             self.view.update_version_label(
                 self.texts[self.lang]['database_up_to_date'])
 
+    def check_if_installed(self):
+        if(self.model.check_if_installed()):
+            #self.view.update_version_label(version_info["error"])
+            self.view.show_error_message(self.texts[self.lang]['clamav_not_installed'])
+            self.view.disable_buttons()
+            return
+        
     def get_version(self):
         """Obtiene la información de versión de ClamAV"""
         version_info = self.model.get_version()
 
-        if "error" in version_info:
-            self.view.update_version_label(version_info["error"])
-            self.view.show_error_message(self.texts[self.lang]['clamav_not_installed'])
-            self.view.disable_buttons()
-            return
+        version = version_info.get("version", "desconocida")
+        db_date = version_info.get("db_date")
+        current_date = version_info.get("current_date", datetime.now())
 
-        version = version_info["version"]
-        db_date = version_info["db_date"]
-        current_date = version_info["current_date"]
+        if db_date:
+            version_date_formatted = db_date.strftime("%Y-%m-%d")
+            current_date_formatted = current_date.strftime("%Y-%m-%d")
 
-        # Formatear fechas para comparación / Format dates for comparison
-        version_date_formatted = db_date.strftime("%Y-%m-%d")
-        current_date_formatted = current_date.strftime("%Y-%m-%d")
+            is_up_to_date = (current_date_formatted == version_date_formatted)
+            db_date_str = db_date.strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            is_up_to_date = False
+            db_date_str = "fecha desconocida"
 
-        # Actualizar la etiqueta con la información de versión / Update the label with version information
         self.view.update_version_label(
             f"{self.texts[self.lang]['version_label']} {version}\n"
-            f"{self.texts[self.lang]['database_updated_on']} {db_date}"
-        )
-
-        # Actualizar el estado del botón de actualización / Update the update button state
-        is_up_to_date = (current_date_formatted == version_date_formatted)
+            f"{self.texts[self.lang]['database_updated_on']} {db_date_str}"
+)
         self.view.set_update_button_state(is_up_to_date)
 
     def view_about(self):

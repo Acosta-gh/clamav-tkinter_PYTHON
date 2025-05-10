@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 import queue
+import re
 
 
 class ClamAVModel:
@@ -30,10 +31,10 @@ class ClamAVModel:
         except subprocess.CalledProcessError:
             return False
     """
-    
+
     def run_scan_thread(self, path, recursive=False, remove_threats=False, move_to_quarantine=False, bell=True):
         """Ejecuta un escaneo en un hilo y lo pone en una cola / Runs a scan in a thread and puts it in a queue"""
-        args = ['clamscan'] # Comando de ClamAV / ClamAV command
+        args = ['clamscan']  # Comando de ClamAV / ClamAV command
 
         if recursive:
             args.append('-r')
@@ -48,12 +49,15 @@ class ClamAVModel:
             args.append(f'--move={self.infected_files_dir}')
 
         if remove_threats and move_to_quarantine:
-            raise ValueError("No se puede usar '--remove' y '--move' al mismo tiempo.")
-        
-        args.append(path) # Agrega la ruta al final de los argumentos / Adds the path at the end of the arguments
+            raise ValueError(
+                "No se puede usar '--remove' y '--move' al mismo tiempo.")
+
+        # Agrega la ruta al final de los argumentos / Adds the path at the end of the arguments
+        args.append(path)
         print(f"Running scan with args: {args}")
         try:
-            result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(
+                args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             self.result_queue.put(result)
         except Exception as e:
             self.result_queue.put(e)
@@ -84,31 +88,54 @@ class ClamAVModel:
 
     def update_database(self):
         """Actualiza la base de datos de ClamAV / Updates the ClamAV database"""
-        result = subprocess.run(["pkexec", "freshclam"], capture_output=True, text=True)
+        result = subprocess.run(["pkexec", "freshclam"],
+                                capture_output=True, text=True)
         return result
 
+    def check_if_installed(self):
+        try:
+            result = subprocess.run(["which", "clamscan"], check=True,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        except subprocess.CalledProcessError:
+            return False
+
+        
     def get_version(self):
         """Obtiene la versión de ClamAV y la fecha de la base de datos / Gets the ClamAV version and database date"""
         try:
-            result = subprocess.run(["clamscan", "--version"], capture_output=True, text=True)
-            
+            result = subprocess.run(
+                ["clamscan", "--version"], capture_output=True, text=True)
+
             if result.returncode == 0:
                 first_line = result.stdout.strip().split("\n")[0]
+                #Example "ClamAV 0.123.4/12345/Tue May  7 11:30:15 2025"
+
                 parts = first_line.split("/")
-                if len(parts) >= 3:
-                    version = parts[0].replace("ClamAV", "").strip()
-                    version_date_str = parts[2].strip()
-                    date_version = datetime.strptime(version_date_str, "%a %b %d %H:%M:%S %Y")
-                    
-                    self.version_info = {
-                        "version": version,
-                        "db_date": date_version,
-                        "current_date": datetime.now()
-                    }
-                    return self.version_info
-                else:
-                    return {"error": "Unexpected version format"}
+                version = parts[0].replace("ClamAV", "").strip() if len(parts) >= 1 else "desconocida"
+                date_str = parts[2].strip() if len(parts) >= 3 else None
+
+                date_formats = [
+                    "%a %b %d %H:%M:%S %Y",  # Tue May  7 11:34:45 2024
+                    "%a %b %d %Y",           # Tue May 7 2024 
+                ]
+
+                db_date = None
+                if date_str:
+                    for fmt in date_formats:
+                        try:
+                            db_date = datetime.strptime(date_str, fmt)
+                            break
+                        except ValueError:
+                            continue
+
+                self.version_info = {
+                    "version": version,
+                    "db_date": db_date,
+                    "current_date": datetime.now()
+                }
+
+                return self.version_info
             else:
-                return {"error": "Failed to fetch ClamAV version"}
+                return {"error": "Falló la ejecución de clamscan --version"}
         except Exception as e:
-            return {"error": str(e)}
+            return {"error": f"Error inesperado: {str(e)}"}
