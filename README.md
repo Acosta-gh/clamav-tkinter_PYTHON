@@ -29,7 +29,7 @@ YAGC is a graphical user interface (GUI) designed to simplify the use of ClamAV,
     
 ```
 git clone https://github.com/Acosta-gh/clamav-tkinter_PYTHON.git
-cd clamav-tkinter
+cd clamav-tkinter_PYTHON
 ```
 
 2. Create a virtual environment
@@ -121,7 +121,7 @@ sudo apt install clamav clamav-daemon
 
 ```
 git clone https://github.com/Acosta-gh/clamav-tkinter_PYTHON.git
-cd clamav-tkinter
+cd clamav-tkinter_PYTHON
 ```
 
 2. Crear un entorno virtual
