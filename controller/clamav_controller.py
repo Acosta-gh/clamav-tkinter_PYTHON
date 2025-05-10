@@ -149,14 +149,15 @@ class ClamAVController:
                 self.texts[self.lang]['database_up_to_date'])
 
     def check_if_installed(self):
-        if(self.model.check_if_installed()):
-            #self.view.update_version_label(version_info["error"])
+           if not self.model.check_if_installed():
             self.view.show_error_message(self.texts[self.lang]['clamav_not_installed'])
             self.view.disable_buttons()
-            return
         
     def get_version(self):
         """Obtiene la información de versión de ClamAV"""
+        if not self.model.check_if_installed():
+            return
+
         version_info = self.model.get_version()
 
         version = version_info.get("version", "desconocida")

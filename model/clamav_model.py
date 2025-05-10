@@ -4,6 +4,7 @@ from datetime import datetime
 from pathlib import Path
 import queue
 import re
+import shutil
 
 
 class ClamAVModel:
@@ -93,11 +94,8 @@ class ClamAVModel:
         return result
 
     def check_if_installed(self):
-        try:
-            result = subprocess.run(["which", "clamscan"], check=True,
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        except subprocess.CalledProcessError:
-            return False
+        return shutil.which("clamscan") is not None
+
 
         
     def get_version(self):
