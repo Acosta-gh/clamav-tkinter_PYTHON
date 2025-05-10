@@ -160,10 +160,10 @@ class ClamAVController:
 
         version_info = self.model.get_version()
 
-        version = version_info.get("version", "desconocida")
+        version = version_info.get("version", "unknown")
         db_date = version_info.get("db_date")
         current_date = version_info.get("current_date", datetime.now())
-
+        raw_db_date_str = version_info.get("raw_db_date_str", "")
         if db_date:
             version_date_formatted = db_date.strftime("%Y-%m-%d")
             current_date_formatted = current_date.strftime("%Y-%m-%d")
@@ -172,7 +172,7 @@ class ClamAVController:
             db_date_str = db_date.strftime("%Y-%m-%d %H:%M:%S")
         else:
             is_up_to_date = False
-            db_date_str = "fecha desconocida"
+            db_date_str = raw_db_date_str or "unknown"
 
         self.view.update_version_label(
             f"{self.texts[self.lang]['version_label']} {version}\n"

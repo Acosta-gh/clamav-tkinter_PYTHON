@@ -129,6 +129,7 @@ class ClamAVModel:
                 self.version_info = {
                     "version": version,
                     "db_date": db_date,
+                    "raw_db_date_str": date_str,
                     "current_date": datetime.now()
                 }
 
